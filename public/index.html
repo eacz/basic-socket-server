@@ -4,14 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <title>Test</title>
   </head>
-  <body>
-    <h1> Hola </h1>
+  <body class="container">
+    <h1 class="mt-5"> Hola </h1>
+    <hr>
+    
+    <form id="myForm">
+      <div class="row">
+        <div class="col-8">
+          <input type="text" id="messageForm" placeholder="message" class="form-control">
+        </div>
+        <div class="col-4">
+          <button class="btn btn-primary">
+            Send
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <ul id="messages">
+            <li>Hello</li>
+            <li>World</li>
+          </ul>
+        </div>
+      </div>
+    </form>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       const socket = io('http://localhost:4000')
+      const form = document.getElementById('myForm')
+      const messages = document.getElementById('messages')
 
       socket.on('welcome-msg', (data) => {
         console.log(data);
