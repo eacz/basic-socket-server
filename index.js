@@ -16,6 +16,11 @@ io.on('connection', (socket) => {
     msg: 'hello from the socket server',
     data: new Date().toISOString()
   })
+
+  socket.on('client-message', data => {
+    console.log(data);
+  })
+
 });
 
 server.listen(4000, () => {
