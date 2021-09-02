@@ -11,9 +11,12 @@ const io = require('socket.io')(server);
 //public directory
 app.use(express.static(__dirname + '/public'))
 
-io.on('connection', () => { 
-  console.log('Client connected');
- });
+io.on('connection', (socket) => { 
+  socket.emit('welcome-msg', {
+    msg: 'hello from the socket server',
+    data: new Date().toISOString()
+  })
+});
 
 server.listen(4000, () => {
   console.log('Server running on port 4000');
