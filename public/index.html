@@ -14,10 +14,10 @@
     <form id="myForm">
       <div class="row">
         <div class="col-8">
-          <input type="text" id="messageForm" placeholder="message" class="form-control">
+          <input type="text" id="messageInput" placeholder="message" class="form-control">
         </div>
         <div class="col-4">
-          <button class="btn btn-primary">
+          <button type="submit" class="btn btn-primary">
             Send
           </button>
         </div>
@@ -25,8 +25,6 @@
       <div class="row mt-2">
         <div class="col">
           <ul id="messages">
-            <li>Hello</li>
-            <li>World</li>
           </ul>
         </div>
       </div>
@@ -37,17 +35,18 @@
       const socket = io('http://localhost:4000')
       const form = document.getElementById('myForm')
       const messages = document.getElementById('messages')
+      const messageInput = document.getElementById('messageInput')
 
-      socket.on('welcome-msg', (data) => {
-        console.log(data);
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = messageInput.value
+        socket.emit('message-to-server', {message})
+        messageInput.value = ''
+      }) 
+
+      socket.on('message-from-server', (data) => {
+        messages.innerHTML += `<li>${data.message}</li>`
       })
-
-      setTimeout(() => {
-        socket.emit('client-message', {
-          msg: 'from the client',
-          name: 'yyo'
-        })
-      }, 2000);
 
     </script>
 

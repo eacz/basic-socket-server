@@ -17,9 +17,11 @@ io.on('connection', (socket) => {
     data: new Date().toISOString()
   })
 
-  socket.on('client-message', data => {
+  socket.on('message-to-server', data => {
     console.log(data);
+    io.emit('message-from-server', data)
   })
+  
 
 });
 
